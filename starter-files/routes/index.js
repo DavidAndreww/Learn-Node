@@ -1,16 +1,8 @@
 const express = require("express");
 const router = express.Router();
+const storeController = require("../controllers/storeController");
 
 // Do work here
-router.get("/", (req, res) => {
-  // res.send('Hey! It works! Crikey!');
-  // res.json(req.query)
-  res.render("hello", {
-    name: req.query.name,
-    job: req.query.job,
-    location: req.query.location,
-  });
-  console.log(res.locals)
-});
+router.get("/", storeController.homePage);
 
 module.exports = router;
