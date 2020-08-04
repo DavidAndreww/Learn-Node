@@ -1,19 +1,29 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 mongoose.Promise = global.Promise;
-const slug = require('slugs');
+const slug = require("slugs");
 
-const storeSchema = new Mongoose.Schema({
-    name: {
-        type: String,
-        trim: true,
-        required: 'Please enter a store name.'
-    },
-    slug: String,
-    description: {
-        type: String,
-        trim: true
-    },
-    tags: [String]
-})
+const storeSchema = new mongoose.Schema({
+  name: {
+    type: String,
+    trim: true,
+    required: "Please enter a store name.",
+  },
+  slug: String,
+  description: {
+    type: String,
+    trim: true,
+  },
+  tags: [String],
+});
+// runs this code before information is saved (#9 - 10:00 )
+storeSchema.pre("save", function (next) {
+  if (!this.isModified("name")) {
+    next(); // skip
+    return; // stop rest of function from running
+  }
+  this.slug = slug(this.name);
+  next();
+  // TODO make more resilient so slugs are unique
+});
 
-module.exports = mongoose.model('Store', storeSchema);
+module.exports = mongoose.model("Store", storeSchema);
