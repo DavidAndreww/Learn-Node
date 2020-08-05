@@ -14,7 +14,4 @@ exports.createStore = (req, res)=>{
         name: name,
         description: description
     })
-    console.log('name:', name)
-    console.log('description: ', description)
-    console.log('rest: ', rest)
 }
