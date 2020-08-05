@@ -9,9 +9,12 @@ exports.addStore = (req, res) => {
 }
 
 exports.createStore = (req, res)=>{
-    console.log('create store')
-    res.json(req.body)
-    // res.render('index', {
-    //     store: req.body.name
-    // })
+    const {name, description, ...rest} = req.body;
+    res.render('index', {
+        name: name,
+        description: description
+    })
+    console.log('name:', name)
+    console.log('description: ', description)
+    console.log('rest: ', rest)
 }
